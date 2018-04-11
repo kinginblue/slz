@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.shana.slz.mapper.UserMapper">
+    <select id="findUser"  parameterType="int" resultType="cn.shana.slz.model.UserModel">
+        select *from user where id=#{id}
+    </select>
+    <select id="getAll"  resultType="cn.shana.slz.model.UserModel">
+        SELECT *from user
+    </select>
+    <select id="getUser"  parameterType="string" resultType="cn.shana.slz.model.UserModel">
+        SELECT *from user where mobile=#{mobile}
+    </select>
+    <select id="getUserByPhone"  parameterType="string" resultType="cn.shana.slz.model.UserModel">
+        SELECT id,mobile from user where mobile=#{mobile}
+    </select>
+    <insert id="insert" parameterType="cn.shana.slz.model.UserModel">
+        insert into user (mobile,password)
+        values (#{mobile},#{password})
+    </insert>
+</mapper>
