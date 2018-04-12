@@ -42,6 +42,11 @@ public class GlobalControllerHandler implements ResponseBodyAdvice {
      */
     private boolean encode = false;
 
+    /**
+     * 处理controller层异常
+     * @param e 异常
+     * @return AppResponse
+     */
     @ExceptionHandler()
     @ResponseBody
     AppResponse<?> handleException(Exception e) {
@@ -71,7 +76,7 @@ public class GlobalControllerHandler implements ResponseBodyAdvice {
     }
 
     /**
-     * 处理返回值是单个model对象
+     * 处理返回值是单个对象
      *
      * @param object 对象
      * @return 对象
@@ -82,30 +87,34 @@ public class GlobalControllerHandler implements ResponseBodyAdvice {
         }
         HashMap<String, Object> objectHashMap = new HashMap<String, Object>();
         Field[] fields = object.getClass().getDeclaredFields();
-        for (Field field:fields){
-            if (field.getName().equals("data")){
+        for (Field field:fields)
+            if (field.getName().equals("data")) {
                 try {
+                    field.setAccessible(true);
                     Object data = field.get(object);
-                    if(data instanceof List){
-                        List<HashMap<String,Object>> mapList=new ArrayList<>();
-                        for (Object o:mapList){
-                            Map map = (Map) handleObject(o);
-                            mapList.add((HashMap<String, Object>) map);
-                        }
-                        objectHashMap.put("data",mapList);
+                    if(data==null){
+                        objectHashMap.put("data",null);
                     }else{
-                        // 从对象取出data对象解析
-                        HashMap<String, Object> dataMap = new HashMap<>(getDataMap(field, data));
-                        objectHashMap.put("data",dataMap);
+                        if (data instanceof List) {
+                        ArrayList<Object> mapList = new ArrayList<>();
+                        for (Object ignored : (List)data) {
+                            Map<String, Object> map =  getDataMap(field,data);
+                            mapList.add(map);
+                        }
+                        objectHashMap.put("data", mapList);
+                        } else {
+                            // 从对象取出data对象解析
+                            HashMap<String, Object> dataMap = new HashMap<>(getDataMap(field, data));
+                            objectHashMap.put("data", dataMap);
+                        }
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
                 //重新将data对象放置回去
-            }else{
-                objectHashMap.put(field.getName(), getValue(object,field));
+            } else {
+                objectHashMap.put(field.getName(), getValue(object, field));
             }
-        }
         return objectHashMap;
     }
 
@@ -119,6 +128,7 @@ public class GlobalControllerHandler implements ResponseBodyAdvice {
     private Map<String,Object> getDataMap(Field field,Object object){
         HashMap<String, Object> dataMap = new HashMap<>();
         try {
+            field.setAccessible(true);
             Object data = field.get(object);
             Field[] dataFields = data.getClass().getDeclaredFields();
             for(Field dataField:dataFields){
@@ -149,6 +159,7 @@ public class GlobalControllerHandler implements ResponseBodyAdvice {
         try {
             field.setAccessible(true);
             value= String.valueOf(field.get(o)) ;
+//            这个地方可以做加密扩展
 //            if(val!=null){
 //                if(encode){
 //                    value = Helper.encode(val.toString());
@@ -161,6 +172,13 @@ public class GlobalControllerHandler implements ResponseBodyAdvice {
         }
         return value;
     }
+
+    /**
+     * 检测该string是否在数组之中
+     * @param str string
+     * @param array string数组
+     * @return true or false
+     */
     private static boolean isStringInArray(String str, String[] array){
         for (String val:array){
             if(str.equals(val)){
