@@ -4,8 +4,9 @@ import java.util.List;
 
 public interface BaseMapper<T> {
     void insert(T t);
-    void delete(long id);
+    void insert(int id);
+    void delete(int id);
     void update(T t);
-    void query(long id);
+    void query(int id);
     List<T> getAll();
 }

@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface UserMapper extends BaseMapper<UserModel>{
 
-        UserModel findUser(int id);
-
         UserModel getUser(String mobile);
 
         UserModel getUserByPhone(String mobile);
