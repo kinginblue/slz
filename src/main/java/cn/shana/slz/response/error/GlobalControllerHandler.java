@@ -51,7 +51,7 @@ public class GlobalControllerHandler implements ResponseBodyAdvice {
     @ResponseBody
     AppResponse<?> handleException(Exception e) {
         LOGGER.error(e.getMessage(),e);
-        return new AppResponse<>(502,e.getMessage(), null);
+        return ResponseUtils.error(ErrorEnum.UNKNOW_ERROR);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class GlobalControllerHandler implements ResponseBodyAdvice {
         if(object==null){
             return null;
         }
-        HashMap<String, Object> objectHashMap = new HashMap<String, Object>();
+        HashMap<String, Object> objectHashMap = new HashMap<>();
         Field[] fields = object.getClass().getDeclaredFields();
         for (Field field:fields)
             if (field.getName().equals("data")) {
@@ -104,8 +104,7 @@ public class GlobalControllerHandler implements ResponseBodyAdvice {
                         objectHashMap.put("data", mapList);
                         } else {
                             // 从对象取出data对象解析
-                            HashMap<String, Object> dataMap = new HashMap<>(getDataMap(field, data));
-                            objectHashMap.put("data", dataMap);
+                            objectHashMap.put("data", getDataMap(field, data));
                         }
                     }
                 } catch (IllegalAccessException e) {

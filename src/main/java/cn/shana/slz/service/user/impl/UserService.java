@@ -4,48 +4,54 @@ import cn.shana.slz.mapper.UserInfoMapper;
 import cn.shana.slz.mapper.UserMapper;
 import cn.shana.slz.model.UserModel;
 import cn.shana.slz.response.AppResponse;
+import cn.shana.slz.response.error.ErrorEnum;
+import cn.shana.slz.response.error.ResponseUtils;
 import cn.shana.slz.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionException;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 @Service
 public class UserService implements IUserService {
 
     private final UserMapper userMapper;
     private final UserInfoMapper userInfoMapper;
+
     @Autowired
-    public UserService(UserMapper userMapper,UserInfoMapper userInfoMapper) {
+    public UserService(UserMapper userMapper, UserInfoMapper userInfoMapper) {
         this.userMapper = userMapper;
-        this.userInfoMapper=userInfoMapper;
+        this.userInfoMapper = userInfoMapper;
     }
 
+    @Transactional
     @Override
-    public AppResponse<UserModel> insertUser(UserModel userEntity) {
+    public AppResponse insertUser(UserModel userEntity) {
         UserModel user = userMapper.getUserByPhone(userEntity.getMobile());
-        AppResponse<UserModel> appResponse = new AppResponse<>();
-        appResponse.setCode(0);
         if (user == null) {
-            userMapper.insert(userEntity);
-            UserModel newUser = userMapper.getUserByPhone(userEntity.getMobile());
-            userInfoMapper.insert(newUser.getId());
+            try {
+                userMapper.insert(userEntity);
+                UserModel newUser = userMapper.getUserByPhone(userEntity.getMobile());
+                userInfoMapper.insert(newUser.getId());
+            } catch (TransactionException e) {
+                //                事务回滚？
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                e.printStackTrace();
+                return ResponseUtils.error(-1, "出现事务异常");
+            }
         } else {
-            appResponse.setCode(-1);
-            appResponse.setMessage("该用户已经存在，请登录");
-            return appResponse;
+            return ResponseUtils.error(ErrorEnum.USER_IS_EXITED);
         }
-        appResponse.setMessage("该用户已经成功创建");
-        return appResponse;
+        return ResponseUtils.success();
     }
 
     @Override
-    public AppResponse<UserModel> getUserByPhone(String phone) {
-        AppResponse<UserModel> appResponse;
+    public AppResponse getUserByPhone(String phone) {
         UserModel user = userMapper.getUserByPhone(phone);
-        if(user!=null){
-            appResponse=new AppResponse<>(0,"success",user);
-        }else{
-            appResponse=new AppResponse<>(-1,"该用户不存在",null);
+        if (user == null) {
+            return ResponseUtils.error(ErrorEnum.USER_NOT_FIND);
         }
-        return appResponse;
+        return ResponseUtils.success(user);
     }
 }
