@@ -1,4 +1,4 @@
-package cn.shana.slz.logics.user.mapper.base;
+package cn.shana.slz.boot.mapper;
 
 import java.util.List;
 
