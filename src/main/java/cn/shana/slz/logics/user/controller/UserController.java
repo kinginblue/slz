@@ -1,7 +1,9 @@
 package cn.shana.slz.logics.user.controller;
 
+import cn.shana.slz.boot.orika.Orika;
 import cn.shana.slz.boot.response.AppResponse;
 import cn.shana.slz.boot.response.ResponseUtils;
+import cn.shana.slz.logics.user.data.response.UserVo;
 import cn.shana.slz.logics.user.model.UserModel;
 import cn.shana.slz.logics.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class UserController {
         UserModel userModel = userService.insertUser(userEntity);
 
         // 响应结果
-        return ResponseUtils.success(userModel);
+        return ResponseUtils.success(new UserVo(userModel));// 使用构造方法狗造成VO
     }
 
     /**
@@ -42,6 +44,6 @@ public class UserController {
         UserModel userModel = userService.getUserByPhone(mobile);
 
         // 响应结果
-        return ResponseUtils.success(userModel);
+        return ResponseUtils.success(Orika.map(userModel, UserVo.class));// 借助 Orika 类库转化成VO
     }
 }
