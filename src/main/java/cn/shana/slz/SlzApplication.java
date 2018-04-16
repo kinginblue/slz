@@ -1,13 +1,11 @@
 package cn.shana.slz;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @SpringBootApplication
-@MapperScan("cn.shana.slz.logics.service.mapper")
 public class SlzApplication {
 
 	public static void main(String[] args) {
