@@ -17,7 +17,6 @@ public class UserInfoService implements IUserInfoService<UserInfoModel> {
         this.userInfoMapper = userInfoMapper;
     }
 
-
     @Override
     public UserInfoModel insertUserInfo(UserModel userEntity) {
         return null;
