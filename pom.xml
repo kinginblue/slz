@@ -61,6 +61,7 @@
 
 	<build>
 		<!--mapper.xml映射加载-->
+		<!--
 		<resources>
 			<resource>
 				<directory>src/main/java</directory>
@@ -72,6 +73,7 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
+		-->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
