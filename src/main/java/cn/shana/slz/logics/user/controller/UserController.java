@@ -1,6 +1,7 @@
 package cn.shana.slz.logics.user.controller;
 
 import cn.shana.slz.boot.response.AppResponse;
+import cn.shana.slz.boot.response.ResponseUtils;
 import cn.shana.slz.logics.user.model.UserModel;
 import cn.shana.slz.logics.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UserController {
 
-    private final IUserService userService;
-
     @Autowired
-    public UserController(IUserService userService) {
-        this.userService = userService;
-    }
+    private IUserService userService;
 
     /**
      * 创建用户
@@ -25,7 +22,12 @@ public class UserController {
      */
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public AppResponse<UserModel> insertUser(@RequestBody UserModel userEntity) {
-        return userService.insertUser(userEntity);
+
+        // 执行创建
+        UserModel userModel = userService.insertUser(userEntity);
+
+        // 响应结果
+        return ResponseUtils.success(userModel);
     }
 
     /**
@@ -35,6 +37,11 @@ public class UserController {
      */
     @GetMapping(value = "/getUserByPhone")
     public AppResponse<UserModel> getUserByPhone(@RequestParam String mobile) {
-        return userService.getUserByPhone(mobile);
+
+        // 执行查找
+        UserModel userModel = userService.getUserByPhone(mobile);
+
+        // 响应结果
+        return ResponseUtils.success(userModel);
     }
 }

@@ -10,12 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserInfoService implements IUserInfoService<UserInfoModel> {
 
-    private final UserInfoMapper userInfoMapper;
-
     @Autowired
-    public UserInfoService(UserInfoMapper userInfoMapper) {
-        this.userInfoMapper = userInfoMapper;
-    }
+    private UserInfoMapper userInfoMapper;
 
     @Override
     public UserInfoModel insertUserInfo(UserModel userEntity) {
