@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/user",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UserController {
 
     private final IUserService userService;
@@ -21,14 +21,17 @@ public class UserController {
 
     /**
      * 创建用户
+     *
      * @param userEntity 用户数据
      * @return AppResponse<UserModel>
      */
-    @RequestMapping(value = "/add",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public AppResponse<UserModel> insertUser(@RequestBody UserModel userEntity){
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public AppResponse<UserModel> insertUser(@RequestBody UserModel userEntity) {
         return userService.insertUser(userEntity);
     }
+
     //todo
+
     /**
      * 根据手机号码获取用户信息
      *
@@ -37,7 +40,7 @@ public class UserController {
      */
     @GetMapping(value = "/getUserByPhone")
     @SerializedField(excludes = {"password"})
-    public AppResponse<UserModel> getUserByPhone(@RequestParam String mobile){
+    public AppResponse<UserModel> getUserByPhone(@RequestParam String mobile) {
         return userService.getUserByPhone(mobile);
     }
 }
