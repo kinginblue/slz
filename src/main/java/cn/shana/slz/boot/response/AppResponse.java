@@ -1,4 +1,4 @@
-package cn.shana.slz.response;
+package cn.shana.slz.boot.response;
 
 public class AppResponse<T> {
 
@@ -6,9 +6,10 @@ public class AppResponse<T> {
     private String message;
     private T data;
 
-    public AppResponse(){
+    public AppResponse() {
         super();
     }
+
     public AppResponse(int code, String message, T data) {
         this.code = code;
         this.message = message;

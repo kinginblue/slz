@@ -1,7 +1,7 @@
-package cn.shana.slz.service.user;
+package cn.shana.slz.logics.user.service;
 
 
-import cn.shana.slz.model.UserModel;
+import cn.shana.slz.logics.user.model.UserModel;
 
 public interface IUserInfoService<T> {
 

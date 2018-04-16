@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @SpringBootApplication
-@MapperScan("cn.shana.slz.mapper")
+@MapperScan("cn.shana.slz.logics.service.mapper")
 public class SlzApplication {
 
 	public static void main(String[] args) {

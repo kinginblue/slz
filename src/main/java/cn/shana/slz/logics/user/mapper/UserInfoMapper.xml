@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.shana.slz.mapper.UserInfoMapper">
+<mapper namespace="cn.shana.slz.logics.user.mapper.UserInfoMapper">
     <!--查找用户by ID-->
-    <select id="query"  parameterType="string" resultType="cn.shana.slz.model.UserModel">
+    <select id="query"  parameterType="string" resultType="cn.shana.slz.logics.user.model.UserModel">
         SELECT *from userinfo where id=#{id}
     </select>
     <!--创建用户-->

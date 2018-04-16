@@ -1,12 +1,12 @@
-package cn.shana.slz.service.user.impl;
+package cn.shana.slz.logics.user.service.impl;
 
-import cn.shana.slz.mapper.UserInfoMapper;
-import cn.shana.slz.mapper.UserMapper;
-import cn.shana.slz.model.UserModel;
-import cn.shana.slz.response.AppResponse;
-import cn.shana.slz.response.error.ErrorEnum;
-import cn.shana.slz.response.error.ResponseUtils;
-import cn.shana.slz.service.user.IUserService;
+import cn.shana.slz.logics.user.mapper.UserInfoMapper;
+import cn.shana.slz.logics.user.mapper.UserMapper;
+import cn.shana.slz.logics.user.model.UserModel;
+import cn.shana.slz.boot.response.AppResponse;
+import cn.shana.slz.boot.response.ErrorEnum;
+import cn.shana.slz.boot.response.ResponseUtils;
+import cn.shana.slz.logics.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionException;

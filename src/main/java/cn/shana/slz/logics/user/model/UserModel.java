@@ -1,4 +1,4 @@
-package cn.shana.slz.model;
+package cn.shana.slz.logics.user.model;
 
 import java.io.Serializable;
 

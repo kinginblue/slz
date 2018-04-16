@@ -1,4 +1,4 @@
-package cn.shana.slz.model;
+package cn.shana.slz.logics.user.model;
 
 public class UserInfoModel {
 

@@ -1,8 +1,9 @@
-package cn.shana.slz.response.error;
+package cn.shana.slz.boot.response.error;
 
 
-import cn.shana.slz.response.AppResponse;
-import cn.shana.slz.response.SerializedField;
+import cn.shana.slz.boot.response.AppResponse;
+import cn.shana.slz.boot.response.ErrorEnum;
+import cn.shana.slz.boot.response.ResponseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;

@@ -1,9 +1,9 @@
-package cn.shana.slz.service.user.impl;
+package cn.shana.slz.logics.user.service.impl;
 
-import cn.shana.slz.mapper.UserInfoMapper;
-import cn.shana.slz.model.UserInfoModel;
-import cn.shana.slz.model.UserModel;
-import cn.shana.slz.service.user.IUserInfoService;
+import cn.shana.slz.logics.user.mapper.UserInfoMapper;
+import cn.shana.slz.logics.user.model.UserInfoModel;
+import cn.shana.slz.logics.user.model.UserModel;
+import cn.shana.slz.logics.user.service.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

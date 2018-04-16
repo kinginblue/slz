@@ -1,6 +1,4 @@
-package cn.shana.slz.response.error;
-
-import cn.shana.slz.response.AppResponse;
+package cn.shana.slz.boot.response;
 
 public class ResponseUtils {
     /**
@@ -32,13 +30,13 @@ public class ResponseUtils {
     /**
      * 自定义错误返回
      *
-     * @param code 错误码
+     * @param errorEnum 错误枚举
      * @param msg  错误消息
      * @return appResponse
      */
-    public static AppResponse error(Integer code, String msg) {
+    public static AppResponse error(ErrorEnum errorEnum, String msg) {
         AppResponse<Object> response = new AppResponse<>();
-        response.setCode(code);
+        response.setCode(errorEnum.getCode());
         response.setData(null);
         response.setMessage(msg);
         return response;
