@@ -38,7 +38,7 @@ public class UserService implements IUserService {
                 //                事务回滚？
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 e.printStackTrace();
-                return ResponseUtils.error(-1, "出现事务异常");
+                return ResponseUtils.error(ErrorEnum.UNKNOW_ERROR, "出现事务异常");
             }
         } else {
             return ResponseUtils.error(ErrorEnum.USER_IS_EXITED);
