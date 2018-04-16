@@ -2,14 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.shana.slz.logics.user.mapper.UserMapper">
+
     <!--查找用户by ID-->
     <select id="getUser"  parameterType="string" resultType="cn.shana.slz.logics.user.model.UserModel">
         SELECT *from user where id=#{id}
     </select>
+
     <!--查找用户by 手机-->
     <select id="getUserByPhone"  parameterType="string" resultType="cn.shana.slz.logics.user.model.UserModel">
         SELECT id,mobile from user where mobile=#{mobile}
     </select>
+
     <!--创建用户-->
     <insert id="insert" parameterType="cn.shana.slz.logics.user.model.UserModel">
         insert into user (mobile,password)

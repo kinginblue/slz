@@ -2,10 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.shana.slz.logics.user.mapper.UserInfoMapper">
+
     <!--查找用户by ID-->
     <select id="query"  parameterType="string" resultType="cn.shana.slz.logics.user.model.UserModel">
         SELECT *from userinfo where id=#{id}
     </select>
+
     <!--创建用户-->
     <insert id="insert" parameterType="int">
         insert into userinfo (id)
